@@ -1,23 +1,27 @@
----@diagnostic disable: param-type-mismatch
 UI = require("game.ui")
+Handler = require("handler")
+Settings = require("game.settings")
+Ship = require("sprites.ship")
 
 Screen = {}
-World = love.physics.newWorld(0, 0, true)
+
 function love.load()
 	-- Important Inits
 	math.randomseed(os.time())
 	Screen = UI.windowResized()
 
+	Handler:load()
 	collectgarbage("restart")
-	collectgarbage("setpause", 120)
-	collectgarbage("setstepmul", 200)
 end
 
 function love.update(dt)
 	World:update(dt)
+	Handler:update(dt)
 end
 
-function love.draw() end
+function love.draw()
+    Handler:draw()
+end
 
 function love.resize()
 	Screen = UI.windowResized()
